@@ -102,12 +102,21 @@ document.getElementById("add-to-cart").addEventListener("click", ()=>{
 document.getElementById("checkout-btn").addEventListener("click", ()=>{
    const cartModal = document.getElementById("cart-modal");
    const cartConatainer =document.getElementById("cart-items");
+   const totalQuantityEliment = document.getElementById("total-quantity");
+   const totalPriceElement = document.getElementById("total-price")
+
    cartModal.classList.remove("hidden")
    
+   let totalQuantity = 0;
+   let totalPrice = 0 ;
+
    for(let i=0; i<cartItems.length; i++){
       const item = cartItems[i];
       const row = document.createElement("tr");
       row.classList.add("border-b");
+
+      totalQuantity = totalQuantity+item.quantity;
+      totalPrice = totalPrice + item.price;
       
 
       row.innerHTML=`
@@ -117,13 +126,19 @@ document.getElementById("checkout-btn").addEventListener("click", ()=>{
             <span>${item.title}</span>
          </div>
       </td>
-      <td class="py-2 px-4">${item.color}</td>
-      <td class="py-2 px-4">${item.size}</td>
-      <td class="py-2 px-4">${item.quantity}</td>
-      <td class="py-2 px-4">${item.price}</td>
+      <td class="py-2 px-4 text-center">${item.color}</td>
+      <td class="py-2 px-4 text-center">${item.size}</td>
+      <td class="py-2 px-4 text-center">${item.quantity}</td>
+      <td class="py-2 px-4 text-center">${item.price}</td>
+      
       `;
+   
       cartConatainer.appendChild(row);
    }
+
+   totalQuantityEliment.innerText = totalQuantity;
+   totalPriceElement.innerText = totalPrice;
+
 })
 
 document.getElementById("continue-shopping").addEventListener("click", ()=>{
